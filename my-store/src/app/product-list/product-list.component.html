@@ -1,6 +1,6 @@
 <h2>Products</h2>
 <div *ngFor="let product of products"> <!--Iterador, viaja a través de la lista de productos-->
-    <h3> <a [title]="product.name + ' details'">
+    <h3> <a [title]="product.name + ' details'" [routerLink]="['/products', product.id]">
             {{ product.name }}
         </a></h3>
     <p *ngIf="product.description">
