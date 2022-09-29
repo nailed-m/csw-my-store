@@ -1,13 +1,15 @@
 <h2>Products</h2>
-<div *ngFor="let product of products"> <!--Iterador, viaja a través de la lista de productos-->
-    <h3> <a [title]="product.name + ' details'" [routerLink]="['/products', product.id]">
+
+<div class="products-item" *ngFor="let product of productsArray">
+    <h3>
+        <span> <a [title]="product.name + ' details'" [routerLink]="['/products', product.id]">
             {{ product.name }}
-        </a></h3>
-    <p *ngIf="product.description">
-        Description: {{ product.description }}
-    </p>
+        </a> </span>
+    </h3>
+    <span>{{ product.description }}</span>
     <app-product-alerts [product]="product" (notify)="onNotify()"></app-product-alerts>
 </div>
+
 <button type="button" (click)="share()">
     Share
 </button>

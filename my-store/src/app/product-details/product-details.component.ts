@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+
 import { CartService } from '../cart.service';
-import { Product, products } from '../products';
+import { Product } from '../products';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-product-details',
@@ -10,14 +13,22 @@ import { Product, products } from '../products';
 })
 export class ProductDetailsComponent implements OnInit {
 
+  constructor(private route: ActivatedRoute, private cartService:CartService, private productsService: ProductsService) { }
+
   product: Product | undefined;
 
-  constructor(private route: ActivatedRoute, private cartService:CartService) { }
+  products!: Observable<Product[]>;
+
+  productsArray: Product[] = [];
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = Number(routeParams.get('productId'));
-    this.product = products.find(product => product.id === productIdFromRoute);
+    this.products = this.productsService.getProducts();
+    this.products.subscribe( (valor) => {
+      this.productsArray = valor;
+      this.product = this.productsArray.find(product => product.id === productIdFromRoute);
+    })
   }
 
   addToCart(product: Product) {
