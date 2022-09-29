@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { products } from '../products';
+import { products } from '../products';   //esto ya no nos haría falta porque no usamos products.ts
 
 @Component({
   selector: 'app-product-list',
